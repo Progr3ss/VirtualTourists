@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		91CE25761D5E75F6001151EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25751D5E75F6001151EE /* AppDelegate.swift */; };
-		91CE25781D5E75F6001151EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25771D5E75F6001151EE /* ViewController.swift */; };
 		91CE257B1D5E75F6001151EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91CE25791D5E75F6001151EE /* Main.storyboard */; };
 		91CE257E1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91CE257C1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld */; };
 		91CE25801D5E75F6001151EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91CE257F1D5E75F6001151EE /* Assets.xcassets */; };
@@ -19,6 +18,9 @@
 		91CE25AC1D5E770C001151EE /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25AA1D5E770C001151EE /* Pin+CoreDataProperties.swift */; };
 		91CE25AD1D5E770C001151EE /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25AB1D5E770C001151EE /* Pin.swift */; };
 		91CE25AF1D5E7953001151EE /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25AE1D5E7953001151EE /* mapViewController.swift */; };
+		91CE25B11D5E883C001151EE /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25B01D5E883C001151EE /* Contants.swift */; };
+		91CE25B31D5E8AF3001151EE /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25B21D5E8AF3001151EE /* PhotosViewController.swift */; };
+		91CE25B81D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25B71D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +43,6 @@
 /* Begin PBXFileReference section */
 		91CE25721D5E75F6001151EE /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CE25751D5E75F6001151EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91CE25771D5E75F6001151EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		91CE257A1D5E75F6001151EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91CE257D1D5E75F6001151EE /* Virtual_Tourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Virtual_Tourist.xcdatamodel; sourceTree = "<group>"; };
 		91CE257F1D5E75F6001151EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +58,9 @@
 		91CE25AA1D5E770C001151EE /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		91CE25AB1D5E770C001151EE /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		91CE25AE1D5E7953001151EE /* mapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
+		91CE25B01D5E883C001151EE /* Contants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
+		91CE25B21D5E8AF3001151EE /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		91CE25B71D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = perfomUIUpdatesOnMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +92,7 @@
 		91CE25691D5E75F6001151EE = {
 			isa = PBXGroup;
 			children = (
-				91CE25AA1D5E770C001151EE /* Pin+CoreDataProperties.swift */,
-				91CE25AB1D5E770C001151EE /* Pin.swift */,
+				91CE25B61D5E930E001151EE /* CoreDataManagment */,
 				91CE25A61D5E7669001151EE /* MapKit.framework */,
 				91CE25741D5E75F6001151EE /* Virtual Tourist */,
 				91CE258C1D5E75F7001151EE /* Virtual TouristTests */,
@@ -112,13 +115,15 @@
 			isa = PBXGroup;
 			children = (
 				91CE25751D5E75F6001151EE /* AppDelegate.swift */,
-				91CE25771D5E75F6001151EE /* ViewController.swift */,
 				91CE25791D5E75F6001151EE /* Main.storyboard */,
 				91CE257F1D5E75F6001151EE /* Assets.xcassets */,
 				91CE25811D5E75F6001151EE /* LaunchScreen.storyboard */,
 				91CE25841D5E75F7001151EE /* Info.plist */,
 				91CE257C1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld */,
 				91CE25AE1D5E7953001151EE /* mapViewController.swift */,
+				91CE25B01D5E883C001151EE /* Contants.swift */,
+				91CE25B21D5E8AF3001151EE /* PhotosViewController.swift */,
+				91CE25B71D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift */,
 			);
 			path = "Virtual Tourist";
 			sourceTree = "<group>";
@@ -139,6 +144,15 @@
 				91CE259A1D5E75F7001151EE /* Info.plist */,
 			);
 			path = "Virtual TouristUITests";
+			sourceTree = "<group>";
+		};
+		91CE25B61D5E930E001151EE /* CoreDataManagment */ = {
+			isa = PBXGroup;
+			children = (
+				91CE25AA1D5E770C001151EE /* Pin+CoreDataProperties.swift */,
+				91CE25AB1D5E770C001151EE /* Pin.swift */,
+			);
+			name = CoreDataManagment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,11 +287,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				91CE25AD1D5E770C001151EE /* Pin.swift in Sources */,
-				91CE25781D5E75F6001151EE /* ViewController.swift in Sources */,
 				91CE25AC1D5E770C001151EE /* Pin+CoreDataProperties.swift in Sources */,
 				91CE25AF1D5E7953001151EE /* mapViewController.swift in Sources */,
 				91CE257E1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld in Sources */,
+				91CE25B31D5E8AF3001151EE /* PhotosViewController.swift in Sources */,
+				91CE25B81D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift in Sources */,
 				91CE25761D5E75F6001151EE /* AppDelegate.swift in Sources */,
+				91CE25B11D5E883C001151EE /* Contants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +520,7 @@
 				91CE259F1D5E75F7001151EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91CE25A01D5E75F7001151EE /* Build configuration list for PBXNativeTarget "Virtual TouristTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +529,7 @@
 				91CE25A21D5E75F7001151EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91CE25A31D5E75F7001151EE /* Build configuration list for PBXNativeTarget "Virtual TouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +538,7 @@
 				91CE25A51D5E75F7001151EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

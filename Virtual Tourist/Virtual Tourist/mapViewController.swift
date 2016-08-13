@@ -13,19 +13,20 @@ class mapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: MKMapView!
 	
+	@IBOutlet weak var editBarButton: UIBarButtonItem!
 	var appDelegate: AppDelegate!
 	var managedContext: NSManagedObjectContext!
+	
+	
+	var checkPinDrop: Bool = true
+	var checkPinEdit: Bool = false
 	
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		coreDataManager()
 		detectLongPress()
-		
-	
-		
 
-        // Do any additional setup after loading the view.
     }
 
 
@@ -42,7 +43,7 @@ extension mapViewController{
 	}
 	
 	func detectLongPress() {
-		let longPress = UILongPressGestureRecognizer(target: self, action: "dropPins:")
+		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(mapViewController.dropPins(_:)))
 		longPress.minimumPressDuration = 0.5
 		
 		//add to map
@@ -69,41 +70,66 @@ extension mapViewController{
 	func retrievePins() -> [Pin] {
 		
 		let error: NSErrorPointer = nil
-		// Create the Fetch Request
+		// create fetchRequest
 		let fetchRequest = NSFetchRequest(entityName: "Pin")
-		// Execute the Fetch Request
+		// Execute fetchRequest
 		let results: [AnyObject]?
+		
 		do {
 			results = try managedContext.executeFetchRequest(fetchRequest)
 		} catch let error1 as NSError {
 			error.memory = error1
 			results = nil
 		}
+		
 		// Check for Errors
 		if error != nil {
-			print("Error in fectchAllActors(): \(error)")
+			print("Error retrieving pins \(error)")
 		}
-		// Return the results, cast to an array of Pin objects
+		// Return the results
 		return results as! [Pin]
 	}
-	
 
-	
-	
 	
 }
 
 extension mapViewController: MKMapViewDelegate {
 	
+	@IBAction func editButtonPressed(sender: AnyObject) {
+		
+		if checkPinEdit {
+			checkPinEdit = false
+			editBarButton.title = "Edit"
+			view.frame.origin.y +=  CGFloat(60.0)
+			
+			
+
+		
+		}else {
+			checkPinEdit = true
+			editBarButton.title = "Done"
+			view.frame.origin.y -=  CGFloat(60.0)
+			
+		}
+
+		
+		
+	}
+	
+	
+
+	
+	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-		//cast pin
+		//create pin
 		let pin = view.annotation as! Pin
-		//delete from our context
+		//delete from  context
 		managedContext.deleteObject(pin)
 		//remove the annotation from the map
 		mapView.removeAnnotation(pin)
 		//save our context
 		appDelegate.saveContext()
 	}
+
 	
 }
