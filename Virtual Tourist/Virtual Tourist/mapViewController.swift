@@ -109,11 +109,9 @@ extension mapViewController: MKMapViewDelegate {
 			checkPinEdit = true
 			editBarButton.title = "Done"
 			view.frame.origin.y -=  CGFloat(60.0)
-			
+
 		}
 
-		
-		
 	}
 	
 	
@@ -121,15 +119,31 @@ extension mapViewController: MKMapViewDelegate {
 	
 	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-		//create pin
-		let pin = view.annotation as! Pin
-		//delete from  context
-		managedContext.deleteObject(pin)
-		//remove the annotation from the map
-		mapView.removeAnnotation(pin)
-		//save our context
-		appDelegate.saveContext()
+
+		performSegueWithIdentifier("PhotoDetail", sender: self)
+		
+		//check if Done
+		if editBarButton.title == "Done"{
+			//create pin
+			let pin = view.annotation as! Pin
+			//delete from  context
+			managedContext.deleteObject(pin)
+			//remove the annotation from the map
+			mapView.removeAnnotation(pin)
+			//save our context
+			appDelegate.saveContext()
+			
+			
+		}
+		
 	}
 
-	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		
+		if segue.identifier == "PhotoDetail" {
+			print("segued")
+			
+		
+	}
+}
 }

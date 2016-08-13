@@ -56,7 +56,7 @@
                     <connections>
                         <outlet property="editBarButton" destination="3Iy-SV-WTx" id="8H3-dI-ssr"/>
                         <outlet property="mapView" destination="3H3-CF-25A" id="ORW-cx-bK5"/>
-                        <segue destination="viG-Jz-RCt" kind="show" id="pFB-f5-BeL"/>
+                        <segue destination="viG-Jz-RCt" kind="show" identifier="PhotoDetail" id="pFB-f5-BeL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -123,6 +123,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aLw-Wt-7Tx">
                         <barButtonItem key="leftBarButtonItem" title="Ok" id="IiL-MM-iiY"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="6er-N6-Zhd"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dhc-5Z-5se" userLabel="First Responder" sceneMemberID="firstResponder"/>
