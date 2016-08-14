@@ -8,8 +8,17 @@
 
 import UIKit
 
+import MapKit
+import CoreData
+import CoreLocation
+
 class PhotosViewController: UIViewController {
 	
+	
+//	let Pins : AnyObject! = nil
+	let longitude : NSNumber? = nil
+	let latitude: NSNumber? = nil
+
 	
 
     override func viewDidLoad() {

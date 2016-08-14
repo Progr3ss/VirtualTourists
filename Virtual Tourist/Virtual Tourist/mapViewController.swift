@@ -17,6 +17,7 @@ class mapViewController: UIViewController {
 	
 	@IBOutlet weak var editBarButton: UIBarButtonItem!
 	var appDelegate: AppDelegate!
+	
 	var managedContext: NSManagedObjectContext!
 	
 	
@@ -62,7 +63,7 @@ extension mapViewController{
 		
 		if UIGestureRecognizerState.Began == gestureRecognizer.state {
 			//initialize our Pin with our coordinates and the context from AppDelegate
-			let pin = Pin(pinLatitude: touchMapCoordinate.latitude, pinLongitude: touchMapCoordinate.longitude, context: appDelegate.managedObjectContext)
+			var pin = Pin(pinLatitude: touchMapCoordinate.latitude, pinLongitude: touchMapCoordinate.longitude, context: appDelegate.managedObjectContext)
 			print("\(pin.latitude) and \(pin.longitude)")
 			//add the pin to the map
 			mapView.addAnnotation(pin)
@@ -126,7 +127,7 @@ extension mapViewController: MKMapViewDelegate {
 	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
 
-		performSegueWithIdentifier("PhotoDetail", sender: self)
+		performSegueWithIdentifier("PhotoDetail", sender: view)
 		
 		
 		
@@ -149,6 +150,26 @@ extension mapViewController: MKMapViewDelegate {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		
 		if segue.identifier == "PhotoDetail" {
+			
+			var pins = retrievePins()
+			
+			
+
+			for pin in pins {
+				print("pin \(pin.latitude! )")
+				print("pin \(pin.longitude!)")
+				
+			}
+			
+			if let destinationVC = segue.destinationViewController as? PhotosViewController{
+				//TO-DO: Need to pass pins to PhotosViewController
+//				destinationVC.latitude = 
+//				destinationVC.longitude =
+			}
+			
+			
+			
+			
 	
 			
 		
