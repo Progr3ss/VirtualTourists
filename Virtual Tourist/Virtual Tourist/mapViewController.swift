@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreData
+import CoreLocation
+
 class mapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: MKMapView!
@@ -18,6 +20,7 @@ class mapViewController: UIViewController {
 	var managedContext: NSManagedObjectContext!
 	
 	
+	var locationManager = CLLocationManager()
 	var checkPinDrop: Bool = true
 	var checkPinEdit: Bool = false
 	
@@ -60,8 +63,10 @@ extension mapViewController{
 		if UIGestureRecognizerState.Began == gestureRecognizer.state {
 			//initialize our Pin with our coordinates and the context from AppDelegate
 			let pin = Pin(pinLatitude: touchMapCoordinate.latitude, pinLongitude: touchMapCoordinate.longitude, context: appDelegate.managedObjectContext)
+			print("\(pin.latitude) and \(pin.longitude)")
 			//add the pin to the map
 			mapView.addAnnotation(pin)
+			
 			//save our context. We can do this at any point but it seems like a good idea to do it here.
 			appDelegate.saveContext()
 		}
@@ -87,6 +92,7 @@ extension mapViewController{
 			print("Error retrieving pins \(error)")
 		}
 		// Return the results
+//		print("Pins \(results)")
 		return results as! [Pin]
 	}
 
@@ -122,6 +128,8 @@ extension mapViewController: MKMapViewDelegate {
 
 		performSegueWithIdentifier("PhotoDetail", sender: self)
 		
+		
+		
 		//check if Done
 		if editBarButton.title == "Done"{
 			//create pin
@@ -141,9 +149,11 @@ extension mapViewController: MKMapViewDelegate {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		
 		if segue.identifier == "PhotoDetail" {
-			print("segued")
+	
 			
 		
 	}
 }
+	
 }
+
