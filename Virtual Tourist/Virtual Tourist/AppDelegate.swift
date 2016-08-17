@@ -13,8 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
-
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		return true
@@ -55,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var managedObjectModel: NSManagedObjectModel = {
 	    // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
 	    let modelURL = NSBundle.mainBundle().URLForResource("Virtual_Tourist", withExtension: "momd")!
+        print(modelURL)
 	    return NSManagedObjectModel(contentsOfURL: modelURL)!
 	}()
 
@@ -63,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	    // Create the coordinator and store
 	    let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
 	    let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        print(url)
 	    var failureReason = "There was an error creating or loading the application's saved data."
 	    do {
 	        try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)

@@ -57,4 +57,5 @@ struct Constants {
 	struct FlickrResponseValues {
 		static let OKStatus = "ok"
 	}
+    
 }

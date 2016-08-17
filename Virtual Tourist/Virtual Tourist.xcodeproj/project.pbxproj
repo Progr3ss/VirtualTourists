@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C04D9C81D60C616000ED6AD /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C04D9C71D60C616000ED6AD /* PhotoCollectionViewCell.swift */; };
+		6C04D9CA1D60F659000ED6AD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C04D9C91D60F659000ED6AD /* Photo.swift */; };
+		6C04D9CC1D61540E000ED6AD /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C04D9CB1D61540E000ED6AD /* MemoryCache.swift */; };
+		6C04D9CE1D615441000ED6AD /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C04D9CD1D615441000ED6AD /* FileCache.swift */; };
+		6C04D9D01D61625B000ED6AD /* PinFlickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C04D9CF1D61625B000ED6AD /* PinFlickr.swift */; };
+		6C88461C1D5F1E40005D7450 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C88461B1D5F1E40005D7450 /* Config.swift */; };
 		91CE25761D5E75F6001151EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE25751D5E75F6001151EE /* AppDelegate.swift */; };
 		91CE257B1D5E75F6001151EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91CE25791D5E75F6001151EE /* Main.storyboard */; };
 		91CE257E1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91CE257C1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld */; };
@@ -41,6 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C04D9C71D60C616000ED6AD /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		6C04D9C91D60F659000ED6AD /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = "Virtual Tourist/Photo.swift"; sourceTree = "<group>"; };
+		6C04D9CB1D61540E000ED6AD /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
+		6C04D9CD1D615441000ED6AD /* FileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		6C04D9CF1D61625B000ED6AD /* PinFlickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinFlickr.swift; path = "Virtual Tourist/PinFlickr.swift"; sourceTree = "<group>"; };
+		6C88461B1D5F1E40005D7450 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		91CE25721D5E75F6001151EE /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CE25751D5E75F6001151EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91CE257A1D5E75F6001151EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +126,10 @@
 		91CE25741D5E75F6001151EE /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				6C04D9CD1D615441000ED6AD /* FileCache.swift */,
+				6C04D9CB1D61540E000ED6AD /* MemoryCache.swift */,
+				6C04D9C71D60C616000ED6AD /* PhotoCollectionViewCell.swift */,
+				6C88461B1D5F1E40005D7450 /* Config.swift */,
 				91CE25751D5E75F6001151EE /* AppDelegate.swift */,
 				91CE25791D5E75F6001151EE /* Main.storyboard */,
 				91CE257F1D5E75F6001151EE /* Assets.xcassets */,
@@ -149,6 +165,8 @@
 		91CE25B61D5E930E001151EE /* CoreDataManagment */ = {
 			isa = PBXGroup;
 			children = (
+				6C04D9CF1D61625B000ED6AD /* PinFlickr.swift */,
+				6C04D9C91D60F659000ED6AD /* Photo.swift */,
 				91CE25AA1D5E770C001151EE /* Pin+CoreDataProperties.swift */,
 				91CE25AB1D5E770C001151EE /* Pin.swift */,
 			);
@@ -287,11 +305,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				91CE25AD1D5E770C001151EE /* Pin.swift in Sources */,
+				6C04D9C81D60C616000ED6AD /* PhotoCollectionViewCell.swift in Sources */,
 				91CE25AC1D5E770C001151EE /* Pin+CoreDataProperties.swift in Sources */,
+				6C04D9CE1D615441000ED6AD /* FileCache.swift in Sources */,
+				6C88461C1D5F1E40005D7450 /* Config.swift in Sources */,
 				91CE25AF1D5E7953001151EE /* mapViewController.swift in Sources */,
 				91CE257E1D5E75F6001151EE /* Virtual_Tourist.xcdatamodeld in Sources */,
 				91CE25B31D5E8AF3001151EE /* PhotosViewController.swift in Sources */,
+				6C04D9CA1D60F659000ED6AD /* Photo.swift in Sources */,
 				91CE25B81D5E9A6D001151EE /* perfomUIUpdatesOnMain.swift in Sources */,
+				6C04D9D01D61625B000ED6AD /* PinFlickr.swift in Sources */,
+				6C04D9CC1D61540E000ED6AD /* MemoryCache.swift in Sources */,
 				91CE25761D5E75F6001151EE /* AppDelegate.swift in Sources */,
 				91CE25B11D5E883C001151EE /* Contants.swift in Sources */,
 			);

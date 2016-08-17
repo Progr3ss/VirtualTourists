@@ -13,7 +13,6 @@ import MapKit
 class Pin: NSManagedObject, MKAnnotation{
 
 // Insert code here to add functionality to your managed object subclass
-	
 	override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?)
 	{
 		super.init(entity: entity, insertIntoManagedObjectContext: context)
@@ -28,9 +27,10 @@ class Pin: NSManagedObject, MKAnnotation{
 		super.init(entity: entity, insertIntoManagedObjectContext: context)
 		
 		//Assign NSNumber to long and lat
-		latitude = NSNumber(double: pinLatitude)
+		self.latitude = NSNumber(double: pinLatitude)
 		
-		longitude = NSNumber(double: pinLongitude)
+		self.longitude = NSNumber(double: pinLongitude)
+        self.flickr = PinFlickr(context: context)
 	}
 	
 	//confirm to the protocal
@@ -38,4 +38,17 @@ class Pin: NSManagedObject, MKAnnotation{
 		return CLLocationCoordinate2D(latitude: latitude as! Double, longitude: longitude as! Double)
 	}
 
+    func deletePhotos(context: NSManagedObjectContext, handler: (error: String?) -> Void) {
+        let request = NSFetchRequest(entityName: "Photo")
+        request.predicate = NSPredicate(format: "pin == %@", self)
+        
+        do {
+            let photos = try context.executeFetchRequest(request) as! [Photo]
+            for photo in photos {
+                context.deleteObject(photo)
+            }
+        } catch { }
+        
+        handler(error: nil)
+    }
 }

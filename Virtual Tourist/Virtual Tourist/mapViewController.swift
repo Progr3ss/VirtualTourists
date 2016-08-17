@@ -9,19 +9,15 @@
 import UIKit
 import MapKit
 import CoreData
-import CoreLocation
-
 class mapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: MKMapView!
 	
 	@IBOutlet weak var editBarButton: UIBarButtonItem!
 	var appDelegate: AppDelegate!
-	
 	var managedContext: NSManagedObjectContext!
 	
 	
-	var locationManager = CLLocationManager()
 	var checkPinDrop: Bool = true
 	var checkPinEdit: Bool = false
 	
@@ -32,11 +28,6 @@ class mapViewController: UIViewController {
 		detectLongPress()
 
     }
-
-
-    
-
-
 }
 extension mapViewController{
 	
@@ -63,11 +54,15 @@ extension mapViewController{
 		
 		if UIGestureRecognizerState.Began == gestureRecognizer.state {
 			//initialize our Pin with our coordinates and the context from AppDelegate
-			var pin = Pin(pinLatitude: touchMapCoordinate.latitude, pinLongitude: touchMapCoordinate.longitude, context: appDelegate.managedObjectContext)
-			print("\(pin.latitude) and \(pin.longitude)")
+			let pin = Pin(pinLatitude: touchMapCoordinate.latitude, pinLongitude: touchMapCoordinate.longitude, context: appDelegate.managedObjectContext)
+            
+            pin.flickr.loadNewPhotos(appDelegate.managedObjectContext, handler: { _ in
+                dispatch_async(dispatch_get_main_queue(), {
+                self.appDelegate.saveContext()
+                })
+            })
 			//add the pin to the map
 			mapView.addAnnotation(pin)
-			
 			//save our context. We can do this at any point but it seems like a good idea to do it here.
 			appDelegate.saveContext()
 		}
@@ -93,7 +88,6 @@ extension mapViewController{
 			print("Error retrieving pins \(error)")
 		}
 		// Return the results
-//		print("Pins \(results)")
 		return results as! [Pin]
 	}
 
@@ -108,33 +102,21 @@ extension mapViewController: MKMapViewDelegate {
 			checkPinEdit = false
 			editBarButton.title = "Edit"
 			view.frame.origin.y +=  CGFloat(60.0)
-			
-			
-
-		
 		}else {
 			checkPinEdit = true
 			editBarButton.title = "Done"
 			view.frame.origin.y -=  CGFloat(60.0)
-
 		}
-
 	}
-	
-	
-
-	
-	
+		
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
 
-		performSegueWithIdentifier("PhotoDetail", sender: view)
 		
-		
-		
+		let pin = view.annotation as! Pin
+        mapView.deselectAnnotation(pin, animated: false)
 		//check if Done
 		if editBarButton.title == "Done"{
-			//create pin
-			let pin = view.annotation as! Pin
+            
 			//delete from  context
 			managedContext.deleteObject(pin)
 			//remove the annotation from the map
@@ -143,7 +125,13 @@ extension mapViewController: MKMapViewDelegate {
 			appDelegate.saveContext()
 			
 			
-		}
+        } else {
+            let controller = storyboard!.instantiateViewControllerWithIdentifier("PhotoVC") as! PhotosViewController
+            
+            controller.pin = pin
+//            performSegueWithIdentifier("PhotoDetail", sender: self)
+            navigationController!.pushViewController(controller, animated: true)
+        }
 		
 	}
 
@@ -151,30 +139,9 @@ extension mapViewController: MKMapViewDelegate {
 		
 		if segue.identifier == "PhotoDetail" {
 			
-			var pins = retrievePins()
-			
-			
-
-			for pin in pins {
-				print("pin \(pin.latitude! )")
-				print("pin \(pin.longitude!)")
-				
-			}
-			
-			if let destinationVC = segue.destinationViewController as? PhotosViewController{
-				//TO-DO: Need to pass pins to PhotosViewController
-//				destinationVC.latitude = 
-//				destinationVC.longitude =
-			}
-			
-			
-			
-			
-	
+			print("segued")
 			
 		
 	}
 }
-	
 }
-
