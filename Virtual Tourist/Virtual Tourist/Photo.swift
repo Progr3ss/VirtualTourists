@@ -2,8 +2,9 @@
 //  Photo.swift
 //  Virtual Tourist
 //
-//  Created by martin chibwe on 7/23/16.
-//  Copyright © 2016 martin chibwe. All rights reserved.
+//  Created by martin chibwe on 8/14/16.
+//  Copyright © 2016 Martin Chibwe. All rights reserved.
+//
 
 import Foundation
 import CoreData
@@ -11,14 +12,16 @@ import UIKit
 
 class Photo: NSManagedObject {
 
-    @NSManaged var id: String
-    @NSManaged var url: String
-    @NSManaged var pin: Pin
-
-
+	/* Cache method was inspired by https://github.com/egorio/udacity-virtual-tourist */
+    private let nsCache: NSCache = {
+        let cache = NSCache()
+        cache.name = "cache"
+        cache.countLimit = 200
+        cache.totalCostLimit = (cache.countLimit / 2) * 1024 * 1024
+        return cache
+    }()
+    
     var task: NSURLSessionTask? = nil
-
-	
     lazy var filePath: String = {
         return NSFileManager.defaultManager()
             .URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
@@ -34,30 +37,52 @@ class Photo: NSManagedObject {
         super.init(entity: entity!, insertIntoManagedObjectContext: context)
 
         self.id = id
-        self.url = url
+        self.path = url
         self.pin = pin
     }
-
 
     init(flickrDictionary: [String: AnyObject], pin: Pin, context: NSManagedObjectContext) {
         let entity = NSEntityDescription.entityForName("Photo", inManagedObjectContext: context)
         super.init(entity: entity!, insertIntoManagedObjectContext: context)
         
         self.id = flickrDictionary["id"] as! String
-        self.url = flickrDictionary["url_m"] as! String
+        self.path = flickrDictionary[Constants.FlickrResponseKeys.MediumURL] as! String
         self.pin = pin
     }
 
+    func get(forKey: String) -> UIImage? {
+        return nsCache.objectForKey(forKey) as? UIImage
+    }
+    
+    func getFile(forPath: String) -> UIImage? {
+        return UIImage(contentsOfFile: forPath)
+    }
+    
+    
+    func setFile(data: UIImage, forPath: String) {
+        UIImagePNGRepresentation(data)!.writeToFile(forPath, atomically: true)
+        
+    }
+    
+    
+    func removeFile(forPath: String) {
+        if NSFileManager.defaultManager().fileExistsAtPath(forPath) {
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(forPath)
+                
+            } catch { }
+        }
+    }
 	
     func startLoadingImage(handler: (image : UIImage?, error: String?) -> Void) {
 
-        if let image = MemoryCache.get(filePath) {
+        if let image = get(filePath) {
 			
             return handler(image: image, error: nil)
         }
 
 
-        if let image = FileCache.get(filePath) {
+        if let image = self.getFile(filePath) {
 			
             return handler(image: image, error: nil)
         }
@@ -65,24 +90,26 @@ class Photo: NSManagedObject {
 
         cancelLoadingImage()
 
-        task = NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: NSURL(string: url)!)) { data, response, downloadError in
-            dispatch_async(dispatch_get_main_queue(), {
-                guard downloadError == nil else {
-					
-                    return handler(image: nil, error: "Photo loadnig canceled")
-                }
-
-                guard let data = data, let image = UIImage(data: data) else {
-
-                    return handler(image: nil, error: "Photo not loaded")
-                }
-
-                MemoryCache.set(image, forKey: self.filePath)
-                FileCache.set(image, forPath: self.filePath)
-
+        task = NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: NSURL(string: path)!)) { data, response, downloadError in
+			
+			performUIUpdatesOnMain({ 
 				
-                return handler(image: image, error: nil)
-            })
+				guard downloadError == nil else {
+					
+					return handler(image: nil, error: "Photo loadnig canceled")
+				}
+				
+				guard let data = data, let image = UIImage(data: data) else {
+					
+					return handler(image: nil, error: "Photo not loaded")
+				}
+				
+				self.set(image, forKey: self.filePath)
+				self.setFile(image, forPath: self.filePath)
+				
+				
+				return handler(image: image, error: nil)
+			})
         }
         task!.resume()
     }
@@ -91,11 +118,18 @@ class Photo: NSManagedObject {
         task?.cancel()
     }
 
+    func set(data: UIImage, forKey: String) {
+        nsCache.setObject(data, forKey: forKey, cost: (UIImageJPEGRepresentation(data, 0)?.length) ?? 0)
+    }
+    
+    func remove(forKey: String) {
+        nsCache.removeObjectForKey(forKey)
+    }
    
     override func prepareForDeletion() {
         super.prepareForDeletion()
 
-        MemoryCache.remove(self.filePath)
-        FileCache.remove(self.filePath)
+        self.remove(self.filePath)
+        self.removeFile(self.filePath)
     }
 }

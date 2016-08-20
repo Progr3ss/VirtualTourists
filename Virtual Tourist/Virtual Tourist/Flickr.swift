@@ -1,14 +1,16 @@
 //
-//  PinFlickr.swift
+//  Flickr.swift
 //  Virtual Tourist
 //
-//  Created by martin chibwe on 7/21/16.
-//  Copyright © 2016 martin chibwe. All rights reserved.
+//  Created by martin chibwe on 8/13/16.
+//  Copyright © 2016 Martin Chibwe. All rights reserved.
+//
 
 import Foundation
 import CoreData
 import UIKit
-class PinFlickr: NSManagedObject {
+
+class Flickr: NSManagedObject {
     var session: NSURLSession { return NSURLSession.sharedSession() }
     
     
@@ -17,7 +19,7 @@ class PinFlickr: NSManagedObject {
     let urlofAPI = "https://api.flickr.com/services/rest/"
     
 
-    @NSManaged var nextPage: Int32
+    @NSManaged var everyPage: Int32
     @NSManaged var totalPages: Int32
     @NSManaged var pin: Pin
 
@@ -29,11 +31,11 @@ class PinFlickr: NSManagedObject {
     }
 
     init(nextPage: Int32 = 1, totalPages: Int32 = 1, context: NSManagedObjectContext) {
-        let entity = NSEntityDescription.entityForName("PinFlickr", inManagedObjectContext: context)
+        let entity = NSEntityDescription.entityForName("Flickr", inManagedObjectContext: context)
 
         super.init(entity: entity!, insertIntoManagedObjectContext: context)
 
-        self.nextPage = nextPage
+        self.everyPage = nextPage
         self.totalPages = totalPages
     }
 
@@ -44,29 +46,30 @@ class PinFlickr: NSManagedObject {
         }
 
         loading = true
-        searchPhotosByCoordinate(pin.latitude as! Double, longitude: pin.longitude as! Double, page: Int(nextPage)) { (photos, pages, error) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                guard error == nil else {
-                    return handler(error: error)
-                }
-
-                for photo in photos! where photo["url_m"] != nil {
-                    _ = Photo(flickrDictionary: photo, pin: self.pin, context: context)
-                    
-                }
-
-                self.loading = false
-
+        searchPhotosByCoordinate(pin.latitude as! Double, longitude: pin.longitude as! Double, page: Int(everyPage)) { (photos, pages, error) -> Void in
+         performUIUpdatesOnMain({ 
+			
+			guard error == nil else {
+				return handler(error: error)
+			}
+			
+			for photo in photos! where photo[Constants.FlickrResponseKeys.MediumURL] != nil {
+				_ = Photo(flickrDictionary: photo, pin: self.pin, context: context)
 				
-                self.totalPages = Int32(min(10, pages))
-                self.nextPage = Int32(self.totalPages >= (self.nextPage + 1) ? self.nextPage + 1 : 1)
-          
-
-                return handler(error: nil)
-            })
+			}
+			
+			self.loading = false
+			
+			
+			self.totalPages = Int32(min(10, pages))
+			self.everyPage = Int32(self.totalPages >= (self.everyPage + 1) ? self.everyPage + 1 : 1)
+			
+			
+			return handler(error: nil)
+		})
         }
     }
-    
+	
     func searchPhotosByCoordinate(latitude: Double, longitude: Double, page: Int = 1, handler: (photos: [[String : AnyObject]]?, pages: Int, error: String?) -> Void) {
         
         let minmumLon = max(longitude-(Constants.Flickr.SearchBBoxHalfWidth), Constants.Flickr.SearchLonRange.0)
@@ -83,7 +86,7 @@ class PinFlickr: NSManagedObject {
             "extras": "url_m",
             "format": "json",
             "nojsoncallback": "1",
-            "per_page": "30",
+            "per_page": "20",
             "page": String(page),
             ]
         
@@ -103,7 +106,7 @@ class PinFlickr: NSManagedObject {
                 return
             }
             
-            // Did we get a successful 2XX response?
+		
             guard let status = (response as? NSHTTPURLResponse)?.statusCode where status != 403 else {
                 handler(photos: nil, pages: 0, error: "Username or password is incorrect")
                 return

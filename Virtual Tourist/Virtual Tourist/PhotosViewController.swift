@@ -32,12 +32,12 @@ class PhotosViewController: UIViewController{
         if editBtnFlag {
             editBtnFlag = false
             edit_ButtonView.title = "Edit"
-            view.frame.origin.y +=  CGFloat(60.0)
+            view.frame.origin.y +=  CGFloat(0.0)
             newCollectionButtonView.enabled = true
         }else {
             editBtnFlag = true
             edit_ButtonView.title = "Done"
-            view.frame.origin.y -=  CGFloat(60.0)
+            view.frame.origin.y -=  CGFloat(0.0)
             newCollectionButtonView.enabled = false
         }
         self.view.layoutIfNeeded()
@@ -61,7 +61,7 @@ class PhotosViewController: UIViewController{
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Photo")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-//        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!);
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!);
         
         return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
     }()

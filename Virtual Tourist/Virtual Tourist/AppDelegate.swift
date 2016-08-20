@@ -52,7 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	lazy var managedObjectModel: NSManagedObjectModel = {
 	    // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-	    let modelURL = NSBundle.mainBundle().URLForResource("Virtual_Tourist", withExtension: "momd")!
+        let appFrameworkBundleIdentifier = "Martin-Chibwe.Virtual-Tourist"
+        let customKitBundle = NSBundle(identifier: appFrameworkBundleIdentifier)!
+	    let modelURL = customKitBundle.URLForResource("VirtualTourist", withExtension: "mom")!
+        
         print(modelURL)
 	    return NSManagedObjectModel(contentsOfURL: modelURL)!
 	}()
@@ -94,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// MARK: - Core Data Saving support
 
 	func saveContext () {
-	    if managedObjectContext.hasChanges {
+	    if self.managedObjectContext.hasChanges {
 	        do {
 	            try managedObjectContext.save()
 	        } catch {

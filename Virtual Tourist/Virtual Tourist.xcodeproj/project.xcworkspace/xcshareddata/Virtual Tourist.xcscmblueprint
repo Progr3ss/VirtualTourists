@@ -5,21 +5,28 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "E1B173E654FDCC448EA0F4F3C2AE0404DAD6227E" : 0,
-    "682972232EF9E71180F53A420F5A35C1A533D357" : 0
+    "682972232EF9E71180F53A420F5A35C1A533D357" : 0,
+    "74974BA229BD9CF81E13CB87F75D46287C1A6976" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "64F79E11-F706-4AD6-AD7C-F3C71BCB71FC",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "E1B173E654FDCC448EA0F4F3C2AE0404DAD6227E" : "VTS\/",
-    "682972232EF9E71180F53A420F5A35C1A533D357" : ""
+    "682972232EF9E71180F53A420F5A35C1A533D357" : "",
+    "74974BA229BD9CF81E13CB87F75D46287C1A6976" : "VT\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Virtual Tourist",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Virtual Tourist 6\/Virtual Tourist.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Virtual Tourist\/Virtual Tourist.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Progr3ss\/PitchPerfect.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "682972232EF9E71180F53A420F5A35C1A533D357"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Progr3ss\/VirtualTourist.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74974BA229BD9CF81E13CB87F75D46287C1A6976"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Progr3ss\/VirtualTourists.git",
