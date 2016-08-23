@@ -14,9 +14,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var photo: Photo? = nil {
+		
         didSet {
             oldValue?.cancelLoadingImage()
             loading = true
+			
             photo?.startLoadingImage({ (image, error) -> Void in
                 self.imageView.image = image
                 self.loading = error != nil

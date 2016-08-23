@@ -67,12 +67,7 @@ class PhotosViewController: UIViewController{
     }()
     
     let fetchRequest = NSFetchRequest(entityName: "Pin")
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
-    }
+	
     
     override func viewWillAppear(animated: Bool) {
         
@@ -133,7 +128,8 @@ extension PhotosViewController:UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCollectionViewCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
-        
+		
+		
         cell.photo = photo
         
         return cell

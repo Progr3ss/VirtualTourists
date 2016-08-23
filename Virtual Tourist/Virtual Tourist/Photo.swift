@@ -78,6 +78,9 @@ class Photo: NSManagedObject {
 
         if let image = get(filePath) {
 			
+			
+		
+			
             return handler(image: image, error: nil)
         }
 
@@ -104,7 +107,11 @@ class Photo: NSManagedObject {
 					return handler(image: nil, error: "Photo not loaded")
 				}
 				
-				self.set(image, forKey: self.filePath)
+				
+			
+				let imgData = UIImageJPEGRepresentation(image, 1)
+				self.flickrImage = imgData
+				self.set(self.flickrImage!, forKey: self.filePath)
 				self.setFile(image, forPath: self.filePath)
 				
 				
@@ -117,9 +124,12 @@ class Photo: NSManagedObject {
     func cancelLoadingImage() {
         task?.cancel()
     }
+	
 
-    func set(data: UIImage, forKey: String) {
-        nsCache.setObject(data, forKey: forKey, cost: (UIImageJPEGRepresentation(data, 0)?.length) ?? 0)
+    func set(data: NSData, forKey: String) {
+
+        nsCache.setObject(data, forKey: forKey)
+
     }
     
     func remove(forKey: String) {

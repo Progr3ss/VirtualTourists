@@ -21,6 +21,7 @@ extension Pin{
     @NSManaged var flickr: Flickr
 	
 	
+	
 
 }
 

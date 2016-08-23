@@ -15,5 +15,6 @@ extension Photo{
     @NSManaged var id: String
     @NSManaged var path: String
     @NSManaged var pin: Pin
+	@NSManaged var flickrImage: NSData?
         
 }
